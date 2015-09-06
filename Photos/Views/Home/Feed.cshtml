@@ -1,0 +1,52 @@
+﻿
+@{
+    ViewBag.Title = "Feed";
+}
+
+<h2 style="text-align:center;">Feed</h2>
+
+@if (Model.Count != 0)
+{
+    foreach (var elem in Model)//for (int i = Model.Count - 1; i >= 0; i--)//foreach (var elem in Model)//(Model as List<Post>))
+    {
+        int id = elem.idUser;
+            <div class="row">
+                <div class="col-md-2">
+                    <img src="@elem.Avatar" class="img-rounded" alt=" image" height="50" width="50" style="display: block; margin-left: auto; margin-right: auto; margin-bottom: 5px; margin-top: 5px;" />
+                    <span style="color: #0094ff"> @elem.Name</span>
+                    <span style="color: #0094ff"> @elem.Surname</span>
+                    <span style="color: #0094ff"> @elem.NickName</span>
+                    @Html.ActionLink("->", "OtherPage", "Home", new { iduser = id }, null)
+                    @{string dat = Convert.ToString(elem.Data);
+                    dat = dat.Remove(16);}
+                    <span>   @dat</span>
+                </div>
+                <div class="col-md-8 img-rounded" style=" background:#e0e1e2; text-align: center;">
+
+            
+                @{string p = elem.Photo;
+                  int l = elem.Likes;
+                  int c = elem.Comments;}
+                <img src="~/images/@elem.Photo" class="img-rounded" alt=" image" height="700" width="700" style="display: block; margin-left: auto; margin-right: auto; margin-bottom: 5px; margin-top: 5px;" />
+                <span style="color: #0094ff; "> @elem.Text</span>
+                <br />
+                    <div class="row img-rounded " style="text-align: center;">
+                        <div class="col-md-6 img-rounded" style=" background:#e0e1e2; ">
+                            <span class="glyphicon glyphicon-heart" aria-hidden="true" style="color: #fc2f29"> </span>
+                            @Html.ActionLink("Likes ", "Likes", "Home", new { photo = p, likes = l }, null)
+                            <span style="color: #0094ff"> @elem.Likes</span>
+                        </div>
+                        <div class="col-md-6 img-rounded" style=" background:#e0e1e2; ">
+                            <span class="glyphicon glyphicon-pencil" aria-hidden="true" style="color: #808080"> </span>
+                            @Html.ActionLink("Comments", "Comments", "Home", new { photo = p, comments = c }, null)
+                            <span style="color: #0094ff"> @elem.Comments</span>
+                        </div>
+                    </div>
+
+        </div>
+        <div class="col-md-2">
+        </div>
+    </div>
+    }
+}
+

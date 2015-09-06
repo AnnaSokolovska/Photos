@@ -1,0 +1,57 @@
+﻿
+@{
+    ViewBag.Title = "Likes";
+}
+
+<h2>Likes</h2>
+ 
+<div class="row">
+    <div class="col-md-2">
+    </div>
+    <div class="col-md-8 btn" style=" background:#e0e1e2; ">
+        <img src="~/images/@ViewData["Photo"]" class="img-rounded" alt=" image" height="700" width="700" style="display: block; margin-left: auto; margin-right: auto; margin-bottom: 5px; margin-top: 5px;" />
+        @if(Convert.ToInt32(ViewData["idus"]) != Convert.ToInt32(Session["idUser"]) )
+        { 
+        if (Convert.ToBoolean(ViewData["Liked"]) == false)
+        {
+            string p = Convert.ToString(ViewData["Photo"]);
+            int l = Convert.ToInt32(ViewData["Likes"]);
+            <span class="glyphicon glyphicon-star-empty" aria-hidden="true"></span>
+            <input type="button" class="btn btn-default btn-lg " style="margin-top: 7px; display: block; margin-left: auto; margin-right: auto;" value="Like" onclick="location.href='@Url.Action("Like", "Home", new { photo = p, likes = l })'" >
+        }
+        else
+        {
+            string p = Convert.ToString(ViewData["Photo"]);
+            int l = Convert.ToInt32(ViewData["Likes"]);
+            <span class="glyphicon glyphicon-star" aria-hidden="true"></span>
+            <input type="button" class="btn btn-default btn-lg" style="margin-top: 7px; display: block; margin-left: auto; margin-right: auto;" value="DisLike" onclick="location.href='@Url.Action("DisLike", "Home", new { photo = p, likes = l })'">
+        }
+        }
+        <div class="row img-rounded">
+            @foreach (var elem in Model)//(Model as List<Post>))
+            {
+                int id = elem.idUser;
+                <div class="row ">
+                    <div class="col-md-4 btn" >
+                        <img src="@elem.Avatar" class="img-rounded" alt=" image" height="50" width="50" style="display: block; margin-left: auto; margin-right: auto; margin-bottom: 5px; margin-top: 5px;" />
+                    </div>
+                    <div class="col-md-8 btn">
+                        <span > @elem.Name</span>
+                        <!--</div>
+                    <div class="col-md-3 btn" style=" background:#e0e1e2; "> -->
+                        <span > @elem.Surname</span>
+                        <!-- </div>
+                    <div class="col-md-3 btn" style=" background:#e0e1e2; ">-->
+                        <span > @elem.NickName</span>
+                        @Html.ActionLink("Go to page", "OtherPage", "Home", new { iduser = id }, null)
+                    </div>
+                </div>
+            }
+        </div>
+    </div>
+    <div class="col-md-2">
+    </div>
+</div>
+
+
+

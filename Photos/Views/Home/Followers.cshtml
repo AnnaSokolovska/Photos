@@ -1,0 +1,43 @@
+﻿@{
+    ViewBag.Title = "Followers";
+}
+<div class="row">
+    <div class="col-md-offset-2 col-md-8">
+        <h2>Followers</h2>
+        @if (Model.Count != 0)
+        {
+            <div style=" background:#e0e1e2; margin-top:40px; " class="img-rounded">
+
+                @foreach (var elem in Model)//(Model as List<Post>))
+                {
+                    int id = elem.idUser;
+                    <div class="row">
+                        <div class="col-md-4">
+                            <img src="@elem.Avatar" class="img-rounded" alt=" image" height="50" width="50" style="display: block; margin-left: auto; margin-right: auto; margin-bottom: 5px; margin-top: 5px;" />
+                        </div>
+                        <div class="col-md-6">
+                            <span> @elem.Name</span>
+                            <!--</div>
+                        <div class="col-md-3 btn" style=" background:#e0e1e2; "> -->
+                            <span> @elem.Surname</span>
+                            <!-- </div>
+                        <div class="col-md-3 btn" style=" background:#e0e1e2; ">-->
+                            <span> @elem.NickName</span>
+
+                        </div>
+                        <div class="col-md-2">
+                            @Html.ActionLink("Go to page", "OtherPage", "Home", new { iduser = id }, null)
+                        </div>
+                    </div>
+                }
+            </div>
+
+        }
+        else
+        {
+            <h4>You have not followers =(</h4>
+        }
+     </div>
+</div>
+
+

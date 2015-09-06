@@ -1,0 +1,58 @@
+﻿@{
+    ViewBag.Title = "Comments";
+    int yourcomment = Convert.ToInt32(Session["idUser"]);
+}
+
+<h2>Comments</h2>
+
+<div class="row">
+    <div class="col-md-2">
+    </div>
+    <div class="col-md-8 img-rounded" style=" background:#e0e1e2; ">
+        <img src="~/images/@ViewData["Photo"]" class="img-rounded" alt=" image" height="700" width="700" style="display: block; margin-left: auto; margin-right: auto; margin-bottom: 5px; margin-top: 5px;" />
+        @{string p = Convert.ToString(ViewData["Photo"]);
+        int c = Convert.ToInt32(ViewData["Comments"]);}
+        <form action="~/Home/Comment" method="post" class=" text-center" enctype="multipart/form-data">
+            <input type="hidden" value="@ViewData["Photo"]" name="photo" />
+            <input type="hidden" value="@ViewData["Comments"]" name="comments" />
+            <div class="text-center">
+                <textarea name="comment" class="form-control" style=" margin-left:25px; max-width:700px;" placeholder="Search"> </textarea>
+            </div>
+            <input type="submit" class="btn btn-default btn-lg" style="margin-top: 7px; display: block; margin-left: auto; margin-right: auto;" value="Comment">
+        </form>
+        <div class="row">
+            @foreach (var elem in Model)//(Model as List<Post>))
+            {
+                int id = elem.idUserLeft;
+                <div class="row img-rounded">
+                    <div class="col-lg-offset-1 col-md-3 img-rounded">
+                        <img src="@elem.Avatar" class="img-rounded" alt=" image" height="50" width="50" style="display: block; margin-left: auto; margin-right: auto; margin-bottom: 5px; margin-top: 5px;" />
+                    </div>
+                    <div class="col-md-8 img-rounded">
+                        <div class="row">
+                            <div class="col-md-6">
+                                <span style="color: #0094ff"> @elem.UserData</span>
+                                @Html.ActionLink("->", "OtherPage", "Home", new { iduser = id }, null)
+                            </div>
+                            <div class="right">
+                                @{string dat = Convert.ToString(elem.Data);
+                                dat = dat.Remove(16);}
+                                <span>   @dat</span>
+                                @if (elem.idUserLeft == yourcomment)
+                                {
+                                    long d = elem.CreationTime;
+                                    <span class="glyphicon glyphicon-trash" aria-hidden="true" style="color: #808080"> </span>
+                                    @Html.ActionLink("x", "DelComment", "Home", new { photo = @p, comments = @c, creationtime = @d }, null)
+                                }
+                            </div>
+                        </div>
+                        <p style="text-align:left; "> @elem.Text</p>
+                    </div>
+                </div>
+            }
+        </div>
+    </div>
+
+    <div class="col-md-2">
+    </div>
+</div>

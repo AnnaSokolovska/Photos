@@ -1,0 +1,54 @@
+﻿@{
+    ViewBag.Title = "Search";
+}
+
+
+<div class="row">
+    <div class="col-md-offset-2 col-md-8">
+        <h2>Search</h2>
+        <form class="form-inline" style="width:600px" action="~/Home/SearchUser" method="post" enctype="multipart/form-data">
+            <div class="form-group">
+                <input name="nick" type="text" class="form-control" placeholder="Search">
+            </div>
+            <div class="form-group">
+                <!--<textarea name="nicktosearsh" class="btn" rows="1" style="width: 500px;">nik</textarea>-->
+                <input class="btn btn-primary" type="submit" value="Search" />
+            </div>
+        </form>
+
+
+        @if (Model.Count != 0)
+        {
+            <div style=" background:#e0e1e2; margin-top:40px; " class="img-rounded">
+
+                @foreach (var elem in Model)//(Model as List<Post>))
+                {
+                    int id = elem.idUser;
+                    <div class="row">
+                        <div class="col-md-4">
+                            <img src="@elem.Avatar" class="img-rounded" alt=" image" height="50" width="50" style="display: block; margin-left: auto; margin-right: auto; margin-bottom: 5px; margin-top: 5px;" />
+                        </div>
+                        <div class="col-md-6" >
+                            <span> @elem.Name</span>
+                            <!--</div>
+                            <div class="col-md-3 btn" style=" background:#e0e1e2; "> -->
+                            <span> @elem.Surname</span>
+                            <!-- </div>
+                            <div class="col-md-3 btn" style=" background:#e0e1e2; ">-->
+                            <span> @elem.NickName</span>
+                            
+                        </div>
+                        <div class="col-md-2">
+                            @Html.ActionLink("Go to page", "OtherPage", "Home", new { iduser = id }, null)
+                        </div>
+                    </div>
+                }
+            </div>
+
+        }
+        else
+        {
+            <h4>@ViewBag.Message</h4>
+        }
+    </div>
+</div>
